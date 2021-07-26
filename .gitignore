@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+#Mac generated files
+*.DS_Store
+
+# Visual Studio cache directory
+.vscode/
+
+#Local History changes plugin directory
+.history/
