@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
-import { AddShoppingCart } from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
 
 import useStyles from './styles';
 
-import IProduct from '../../components/Product/IProduct';
+import IProduct from './IProduct';
 
 
 const Product: React.FC<{ product: IProduct }> = ( {product} ) => {
@@ -26,7 +26,7 @@ const Product: React.FC<{ product: IProduct }> = ( {product} ) => {
 			</CardContent>
 			<CardActions disableSpacing className={classes.cardActions}>
 				<IconButton aria-label="Add to Cart" /*onClick={handleAddToCart}*/>
-					<AddShoppingCart />
+					<Add />
 				</IconButton>
 			</CardActions>
 		</Card>

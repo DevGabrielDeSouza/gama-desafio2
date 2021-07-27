@@ -5,8 +5,8 @@ import Cart from '../../assets/cart.png'
 import { Container } from './style';
 
 import api from '../../services/api';
+import IProduct from '../../components/Store/Product/IProduct';
 
-import IProduct from '../../components/Product/IProduct';
 interface Test {
 	cart: IProduct[]
 }
