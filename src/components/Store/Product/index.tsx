@@ -7,8 +7,10 @@ import useStyles from './styles';
 import IProduct from './IProduct';
 
 
-const Product: React.FC<{ product: IProduct }> = ( {product} ) => {
+const Product: React.FC<{ product: IProduct, onAddToCart: Function }> = ( {product, onAddToCart} ) => {
 	const classes = useStyles();
+
+	const handleAddToCart = () => onAddToCart(product.id);
 
 	return (
 		<Card className={classes.root}>
@@ -25,7 +27,7 @@ const Product: React.FC<{ product: IProduct }> = ( {product} ) => {
 				<Typography dangerouslySetInnerHTML={{ __html: product.description }} variant="body2" color="textSecondary" component="p" />
 			</CardContent>
 			<CardActions disableSpacing className={classes.cardActions}>
-				<IconButton aria-label="Add to Cart" /*onClick={handleAddToCart}*/>
+				<IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
 					<Add />
 				</IconButton>
 			</CardActions>

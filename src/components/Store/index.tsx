@@ -7,42 +7,45 @@ import Product from './Product';
 import useStyles from './styles';
 
 import IProduct from './Product/IProduct';
+import {Cart} from '../../services/Cart';
+import Navbar from '../Navbar';
 
 // import { Container } from './styles';
 
-const Store: React.FC = () => {
+const Store: React.FC<{ onAddToCart: Function}> = ({onAddToCart}) => {
 	const classes = useStyles();
 
 	const [data, setData] = useState<IProduct[]>([]);
-	const [cart, setCart] = useState<IProduct[]>([]);
+	const [cartData, setCart] = useState<IProduct>();
 
 
 	useEffect(() => {
 		api.get('').then(
 			response => {
-				setData(response.data)
+				setData(response.data);
 			}
 		)
-	}, [])
+	}, []);
 
 	useEffect(() => {
-		localStorage.setItem(`@cart`, JSON.stringify(cart));
-	}, [cart]);
+		//localStorage.setItem(`@cart`, JSON.stringify(cartData));
+	}, [cartData]);
 
 
 	const handleCart = (index: number) => {
-		let product = data[index]
-		setCart(cart => [...cart, product]);
+		let product = data[index];
+		Cart.addItem(product as IProduct);
+		//setCart(product);
 	}
 
 	return (
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 
-			<Grid container justify="center" spacing={4}>
+			<Grid container justifyContent="center" spacing={4}>
 				{data.map((prod, index) => (
 					<Grid key={prod.id} item xs={12} sm={6} md={4} lg={3}>
-						<Product product={prod} /*onAddToCart={onAddToCart}*/ />
+						<Product product={prod} onAddToCart={onAddToCart}/>
 					</Grid>
 					/*<div className="product-content" key={prod.id}>
 						<img src={prod.photo} alt="iphone" width="200" height="auto" />

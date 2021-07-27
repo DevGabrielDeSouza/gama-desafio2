@@ -7,10 +7,6 @@ import { Container } from './style';
 import api from '../../services/api';
 import IProduct from '../../components/Store/Product/IProduct';
 
-interface Test {
-	cart: IProduct[]
-}
-
 const Home: React.FC = () => {
 	const [data, setData] = useState<IProduct[]>([]);
 	const [cart, setCart] = useState<IProduct[]>([]);
@@ -22,7 +18,7 @@ const Home: React.FC = () => {
 				setData(response.data)
 			}
 		)
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		localStorage.setItem(`@cart`, JSON.stringify(cart));
@@ -31,7 +27,11 @@ const Home: React.FC = () => {
 
 	const handleCart = (index: number) => {
 		let product = data[index]
-		setCart(cart => [...cart, product]);
+		setCart(cart =>{
+			let finalCart = [...cart, product];
+			console.log(finalCart);
+			return finalCart;
+		});
 	}
 
 	return (

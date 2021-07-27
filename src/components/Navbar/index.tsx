@@ -3,12 +3,14 @@ import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 
+import { Cart } from '../../services/Cart';
+
 import logo from '../../assets/game-tools.png';
 import useStyles from './styles';
 
 // import { Container } from './styles';
 
-const Navbar: React.FC/*<{totalItems: number}>*/ = (/*{totalItems}*/) => {
+const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 	const classes = useStyles();
 	//const location = useLocation();
@@ -23,7 +25,7 @@ const Navbar: React.FC/*<{totalItems: number}>*/ = (/*{totalItems}*/) => {
 		<Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
 			<MenuItem>
 				<IconButton /*component={Link} to="/cart"*/ aria-label="Show cart items" color="inherit">
-					<Badge badgeContent={78} color="secondary">
+					<Badge badgeContent={totalItems} color="secondary">
 						<ShoppingCart />
 					</Badge>
 				</IconButton>
@@ -43,7 +45,7 @@ const Navbar: React.FC/*<{totalItems: number}>*/ = (/*{totalItems}*/) => {
 					<div className={classes.grow} />
 					<div className={classes.button}>
 						<IconButton /*component={Link} to="/cart"*/ aria-label="Show cart items" color="inherit">
-							<Badge badgeContent={78} color="secondary">
+							<Badge badgeContent={totalItems} color="secondary">
 								<ShoppingCart />
 							</Badge>
 						</IconButton>
@@ -53,7 +55,7 @@ const Navbar: React.FC/*<{totalItems: number}>*/ = (/*{totalItems}*/) => {
 					{/* {location.pathname === '/' && (
 						<div className={classes.button}>
 							<IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
-								<Badge badgeContent={78} color="secondary">
+								<Badge badgeContent={totalItems} color="secondary">
 									<ShoppingCart />
 								</Badge>
 							</IconButton>
