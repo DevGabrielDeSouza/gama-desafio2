@@ -4,7 +4,7 @@ export class Cart {
 	static get data(){
 		//return this._data;
 		let savedData = localStorage.getItem(`@cart`);
-		if (savedData == "undefined" || savedData == "" || savedData == undefined || savedData == null) {
+		if (savedData === null) {
 			return 0;
 		}else{
 			return JSON.parse(<string>localStorage.getItem(`@cart`));
@@ -14,7 +14,7 @@ export class Cart {
 	static addItem(product: IProduct) {
 		//localStorage.removeItem(`@cart`);
 		let savedData = localStorage.getItem(`@cart`);
-		if (savedData == "undefined" || savedData == "" || savedData == undefined || savedData == null) {
+		if (savedData === null) {
 			localStorage.setItem(`@cart`, JSON.stringify([product]));
 		}else{
 			let data = JSON.parse(savedData);
