@@ -6,14 +6,7 @@ import { Container } from './style';
 
 import api from '../../services/api';
 
-interface IProduct {
-	id: number;
-	photo: string;
-	name: string;
-	description: string;
-	price: number;
-}
-
+import IProduct from '../../components/Product/IProduct';
 interface Test {
 	cart: IProduct[]
 }
