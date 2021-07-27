@@ -5,6 +5,7 @@ import Home from './view/Home';
 import Cart from './services/Cart';
 import api from './services/api';
 import IProduct from './components/Store/Product/IProduct';
+import Signup from './components/Signup';
 
 // import { Container } from './styles';
 
@@ -46,9 +47,12 @@ const App: React.FC = () => {
 
 	return (
 		<div>
+			<Signup/>
+		</div>
+		/*<div>
 			<Navbar totalItems={(cartTotal as number)}/>
 			<Store onAddToCart={handleAddToCart}/>
-		</div>
+		</div>*/
 		/*<div>
 			<Home/>
 		</div>*/
