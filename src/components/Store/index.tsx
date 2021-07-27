@@ -3,7 +3,7 @@ import api from '../../services/api';
 
 import Grid from '@material-ui/core/Grid';
 
-import Product from './Product/Product';
+import Product from './Product';
 import useStyles from './styles';
 
 import IProduct from './Product/IProduct';
