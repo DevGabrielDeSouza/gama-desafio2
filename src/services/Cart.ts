@@ -25,7 +25,7 @@ export class Cart {
 	}
 
 	static log() {
-		console.log(JSON.parse(""+localStorage.getItem(`@cart`)));
+		console.log(JSON.parse("" + localStorage.getItem(`@cart`)));
 	}
 }
 

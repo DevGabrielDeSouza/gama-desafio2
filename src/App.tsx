@@ -11,7 +11,7 @@ import IProduct from './components/Store/Product/IProduct';
 const App: React.FC = () => {
 	const [cartTotal, setCartTotal] = useState<number>();
 
-	const [data, setData] = useState<IProduct[]>([]);
+	const [productsData, setData] = useState<IProduct[]>([]);
 	const [cartData, setCart] = useState<IProduct>();
 
 
@@ -20,6 +20,7 @@ const App: React.FC = () => {
 			response => {
 				setData(response.data);
 				setCartTotal(Cart.data.length);
+				//localStorage.removeItem(`@cart`);
 			}
 		)
 	}, []);
@@ -31,7 +32,8 @@ const App: React.FC = () => {
 
 
 	const addItemByIndex = (index: number) => {
-		let product = data[index];
+		let product = productsData.find(match =>match.id == index);
+		//let product = productsData[index];
 		Cart.addItem(product as IProduct);
 		//setCart(product);
 	}
