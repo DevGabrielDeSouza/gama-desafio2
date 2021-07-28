@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { SignupStyle } from './style';
 import SignUpValidation from './SignUpValidation';
-import RegisterUserService from '../../services/RegisterUserService';
+import UserService from '../../services/UserService';
 import IUserData from '../../services/IUserData';
 
 const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
@@ -61,7 +61,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		event.preventDefault();
 
 		if(validation){
-			if(!RegisterUserService.registerUser(nameData as string, emailData as string, passwordData as string)){
+			if(!UserService.registerUser(nameData as string, emailData as string, passwordData as string)){
 				//alert("Usuário já cadastrado!");
 				setOpenAlert(true);
 			}

@@ -1,7 +1,7 @@
 import IProduct from "../components/Store/Product/IProduct";
 import IUserData from "./IUserData";
 
-export default class RegisterUserService{
+export default class UserService{
 	static get data() {
 		//return this._data;
 		let savedData = localStorage.getItem(`@user`);
@@ -20,19 +20,26 @@ export default class RegisterUserService{
 				password: passwordData ,
 				cart: []
 			};
-			RegisterUserService.addItem(userData);
+			UserService.addItem(userData);
 			return true;
 		}else{
 			return false;
 		}
 	}
 
+	static loginUser(emailData: string, password: string): { emailStatus: boolean, passwordStatus: boolean } {
+
+		let emailMatch = UserService.containsUser(emailData);
+
+		if (emailMatch != undefined) {
+			return { emailStatus: true, passwordStatus: emailMatch.password == password };
+		}
+
+		return { emailStatus: false, passwordStatus: false };
+	}
+
 	static containsUser(email: string){
-
-		let savedData: IUserData[] = RegisterUserService.data as IUserData[];
-
-		console.log(savedData);
-
+		let savedData: IUserData[] = UserService.data as IUserData[];
 		return savedData.find((user: IUserData) => user.email === email);
 	}
 
@@ -46,7 +53,7 @@ export default class RegisterUserService{
 			data.push(userData);
 			localStorage.setItem(`@user`, JSON.stringify(data));
 		}
-		this.log();
+		//this.log();
 	}
 
 	static log() {
