@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 
-import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
+import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -23,6 +29,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 	const [disableSignUp, setDisableSignUp] = useState(true);
 	const [acceptTerms, setAcceptTerms] = useState(false);
 
+	const [openAlert, setOpenAlert] = useState(false);
 
 	const handleName = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setNameData(e.target.value);
@@ -55,7 +62,8 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 		if(validation){
 			if(!RegisterUserService.registerUser(nameData as string, emailData as string, passwordData as string)){
-				alert("Usuário já cadastrado!");
+				//alert("Usuário já cadastrado!");
+				setOpenAlert(true);
 			}
 		}
 	}
@@ -70,6 +78,24 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 	return (
 		<>
+
+			<Dialog
+				open={openAlert}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						Usuário já cadastrado
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setOpenAlert(false)} color="primary" autoFocus>
+						Ok
+					</Button>
+				</DialogActions>
+			</Dialog>
+
 			<div style={SignupStyle.bg}></div>
 			<Grid style={SignupStyle.marginTop} >
 				<Paper elevation={20} style={SignupStyle.paperStyle}>
