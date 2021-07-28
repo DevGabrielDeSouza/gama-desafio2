@@ -5,6 +5,8 @@ import Home from './view/Home';
 import Cart from './services/Cart';
 import api from './services/api';
 import IProduct from './components/Store/Product/IProduct';
+import Signup from './components/Signup';
+import Login from './components/Login';
 
 // import { Container } from './styles';
 
@@ -19,7 +21,7 @@ const App: React.FC = () => {
 		api.get('').then(
 			response => {
 				setData(response.data);
-				setCartTotal(Cart.data.length);
+				setCartTotal(Cart.itemsAmount);
 				//localStorage.removeItem(`@cart`);
 			}
 		)
@@ -27,7 +29,7 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		//localStorage.setItem(`@cart`, JSON.stringify(cartData));
-		setCartTotal(Cart.data.length);
+		setCartTotal(Cart.itemsAmount);
 	}, [cartData]);
 
 
@@ -40,15 +42,21 @@ const App: React.FC = () => {
 
 	const handleAddToCart = async (index: number) => {
 		addItemByIndex(index);
-		setCartTotal(Cart.data.length);
+		setCartTotal(Cart.itemsAmount);
 	};
 	
 
 	return (
+		/*<div>
+			<Login />
+		</div>*/
 		<div>
+			<Signup/>
+		</div>
+		/*div>
 			<Navbar totalItems={(cartTotal as number)}/>
 			<Store onAddToCart={handleAddToCart}/>
-		</div>
+		</div>*/
 		/*<div>
 			<Home/>
 		</div>*/
