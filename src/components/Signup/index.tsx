@@ -26,6 +26,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 	const [nameData, setNameData] = useState<string>();
 	const [emailData, setEmailData] = useState<string>();
 	const [passwordData, setPasswordData] = useState<string>();
+	const [confirmPassData, setConfirmPassData] = useState<string>();
 	const [disableSignUp, setDisableSignUp] = useState(true);
 	const [acceptTerms, setAcceptTerms] = useState(false);
 
@@ -36,12 +37,26 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		let validation = SignUpValidation.validateName(e.target.value);
 		setNameWarning(!validation);
 
+
+		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
+		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+
+		setDisableSignUp(!(validation && emailCheck && passwordCheck && confirmPassCheck && acceptTerms));
+
 	}
 
 	const handleEmail = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setEmailData(e.target.value);
 		let validation = SignUpValidation.validateEmail(e.target.value);
 		setEmailWarning(!validation);
+
+
+		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
+		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+
+		setDisableSignUp(!(validation && nameCheck && passwordCheck && confirmPassCheck && acceptTerms));
 	}
 
 	const handlePassword = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -50,14 +65,30 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		let validation = SignUpValidation.validatePassword(e.target.value);
 		setPassWarning(!validation);
 		setDisableConfirmPass(!validation);
+
+
+		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
+		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == e.target.value);
+
+		setDisableSignUp(!(validation && nameCheck && emailCheck && confirmPassCheck && acceptTerms));
 	}
 
 	const handlePasswordConfirm = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-		setConfirmPassWarning(!(e.target.value == passwordData));
+		setConfirmPassData(e.target.value);
+		let validation = e.target.value == passwordData;
+		setConfirmPassWarning(!validation);
+
+
+		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
+		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
+		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
+
+		setDisableSignUp(!(validation && nameCheck && emailCheck && passwordCheck && acceptTerms));
 	}
 
-	const signup = (event: any) =>{
-		let validation = !showNameWarning && !showEmailWarning && !showPassWarning && !showConfirmPassWarning && acceptTerms;
+	const signup = (event: any) => {
+		let validation = validateAll();
 		event.preventDefault();
 
 		if(validation){
@@ -66,14 +97,36 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 				setOpenAlert(true);
 			}
 		}
+		UserService.log();
 	}
 
+	const validateAll = ()=>{
 
+		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
+		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
+		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+
+		console.log(
+			"nameCheck: " + nameCheck + 
+			", emailCheck: " + emailCheck + 
+			", passwordCheck: " + passwordCheck + 
+			", confirmPassCheck: " + confirmPassCheck
+			);
+
+		return nameCheck && !!emailCheck && passwordCheck && confirmPassCheck && acceptTerms;
+	}
 	
 	const handleAcceptTerms = (e : React.ChangeEvent<HTMLInputElement>) =>{
 		//RegisterUserService.clearAllData();
 		setAcceptTerms(e.target.checked);
-		setDisableSignUp(!e.target.checked);
+		
+		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
+		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
+		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+
+		setDisableSignUp(!(nameCheck && emailCheck && passwordCheck && confirmPassCheck && e.target.checked));
 	}
 
 	return (

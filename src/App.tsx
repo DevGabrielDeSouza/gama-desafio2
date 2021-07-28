@@ -47,12 +47,12 @@ const App: React.FC = () => {
 	
 
 	return (
-		<div>
-			<Login />
-		</div>
 		/*<div>
-			<Signup/>
+			<Login />
 		</div>*/
+		<div>
+			<Signup/>
+		</div>
 		/*div>
 			<Navbar totalItems={(cartTotal as number)}/>
 			<Store onAddToCart={handleAddToCart}/>

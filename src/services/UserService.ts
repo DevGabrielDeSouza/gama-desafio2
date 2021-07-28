@@ -53,7 +53,6 @@ export default class UserService{
 			data.push(userData);
 			localStorage.setItem(`@user`, JSON.stringify(data));
 		}
-		//this.log();
 	}
 
 	static log() {
