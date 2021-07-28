@@ -1,32 +1,23 @@
 import React from 'react';
 
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import { Container } from './style';
 
 const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
-	//const paperStyle = { padding: '4vmin 2vmin', display: "inline-block", maxWidth: 450, width: "80%", margin: "20px auto" }
 	const paperStyle = {
 		padding: '4vmin 2vmin 4vmin 2vmin',
 		display: "inline-block",
-		//minHeight: "300px",
 		maxWidth: "80%",
-		margin: "10vh 0vh 0vh 0vh",
+		margin: "8vh 0vh 0vh 0vh",
 	}
 	const headerStyle = { margin: 0, width: "100%", textAlign: "center" as "center", fontSize: "max(200%, 6vmin)"}
 	const descStyle = { textAlign: "center" as "center", margin: "10px 0 1vh 0", fontSize: "max(90%, 2vmin)" }
 	const inputRegionStyle = { width: "90%",}
 	const inputStyle = { height: "max(200%, 2vmin)" }
 	const marginTop = {
-		//background: "linear-gradient(45deg, #9013FE 15%, #50E3C2 90%)",
-		//background: "linear-gradient(45deg, #512DA8 15%, #546E7A 90%)",
 		minWidth: "100%",
 		display: "flex",
 		flexDirection: "column" as "column",
@@ -35,8 +26,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		justifyContent: "center",
 	}
 	const bg = {
-		//background: "linear-gradient(45deg, #9013FE 15%, #50E3C2 90%)",
-		background: "linear-gradient(45deg, #512DA8 15%, #546E7A 90%)",
+		background: "linear-gradient(225deg, #7953d2 0%, #512DA8 30%, #546E7A 85%)",
 		minWidth: "100%",
 		minHeight: "max(620px, 100vh)",
 		position: "fixed" as "fixed",
@@ -60,7 +50,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		console.log(e.target.value)
 	}
 
-	const emptySpaceStyle = { width: "5px", height: "10vh", /*background: "red"*/}
+	const emptySpaceStyle = { width: "5px", height: "5vh", /*background: "red"*/}
 
 	return (
 		<Container>
