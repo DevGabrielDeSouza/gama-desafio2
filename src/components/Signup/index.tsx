@@ -6,6 +6,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { SignupStyle } from './style';
 import SignUpValidation from './SignUpValidation';
+import RegisterUserService from '../../services/RegisterUserService';
+import IUserData from '../../services/IUserData';
 
 const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
@@ -15,26 +17,24 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 	const [disableConfirmPass, setDisableConfirmPass] = useState(true);
 	const [showConfirmPassWarning, setConfirmPassWarning] = useState(false);
 
+	const [nameData, setNameData] = useState<string>();
+	const [emailData, setEmailData] = useState<string>();
 	const [passwordData, setPasswordData] = useState<string>();
+	const [disableSignUp, setDisableSignUp] = useState(true);
+	const [acceptTerms, setAcceptTerms] = useState(false);
 
 
 	const handleName = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+		setNameData(e.target.value);
 		let validation = SignUpValidation.validateName(e.target.value);
 		setNameWarning(!validation);
-
-		if (validation) {
-			
-		}
 
 	}
 
 	const handleEmail = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+		setEmailData(e.target.value);
 		let validation = SignUpValidation.validateEmail(e.target.value);
 		setEmailWarning(!validation);
-
-		if (validation) {
-
-		}
 	}
 
 	const handlePassword = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -49,6 +49,25 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		setConfirmPassWarning(!(e.target.value == passwordData));
 	}
 
+	const signup = (event: any) =>{
+		let validation = !showNameWarning && !showEmailWarning && !showPassWarning && !showConfirmPassWarning && acceptTerms;
+		event.preventDefault();
+
+		if(validation){
+			if(!RegisterUserService.registerUser(nameData as string, emailData as string, passwordData as string)){
+				alert("Usuário já cadastrado!");
+			}
+		}
+	}
+
+
+	
+	const handleAcceptTerms = (e : React.ChangeEvent<HTMLInputElement>) =>{
+		//RegisterUserService.clearAllData();
+		setAcceptTerms(e.target.checked);
+		setDisableSignUp(!e.target.checked);
+	}
+
 	return (
 		<>
 			<div style={SignupStyle.bg}></div>
@@ -60,7 +79,7 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 							<Typography style={SignupStyle.descStyle} variant='caption' gutterBottom>Cadastre-se e descubra vários jogos e ferramentas!</Typography>
 						</Grid>
 					</div>
-					<form style={SignupStyle.formStyle}>
+					<form style={SignupStyle.formStyle} onSubmit={signup}>
 						<div style={SignupStyle.inputRegionStyle}>
 							<TextField style={SignupStyle.inputStyle} fullWidth label='Nome' placeholder="Insira seu nome" onChange={handleName}/>
 							{
@@ -86,11 +105,11 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 							}
 						</div>
 						<FormControlLabel
-							control={<Checkbox name="checkedA" />}
+							control={<Checkbox name="checkedA" onChange={handleAcceptTerms}/>}
 							label="I accept the terms and conditions."
 							style={SignupStyle.acceptStyle}
 						/>
-						<Button type='submit' variant='contained' color='primary' style={SignupStyle.buttonStyle}>Sign up</Button>
+						<Button type='submit' variant='contained' color='primary' style={SignupStyle.buttonStyle} disabled={disableSignUp}>Sign up</Button>
 					</form>
 				</Paper>
 				<div style={SignupStyle.emptySpaceStyle}></div>

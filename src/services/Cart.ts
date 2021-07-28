@@ -11,6 +11,10 @@ export class Cart {
 		}
 	}
 
+	static get itemsAmount(){
+		return Cart.data.length;
+	}
+
 	static addItem(product: IProduct) {
 		//localStorage.removeItem(`@cart`);
 		let savedData = localStorage.getItem(`@cart`);
