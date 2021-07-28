@@ -120,7 +120,11 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 								showWrongPass ? <span style={LoginStyle.warningStyle}>Senha inválida</span> : null
 							}
 						</div>
-						<Button type='submit' variant='contained' color='primary' style={LoginStyle.buttonStyle} disabled={disableButton}>Sign up</Button>
+						<div style={LoginStyle.buttonsDivStyle}>
+							<Button type='submit' variant='contained' style={LoginStyle.buttonStyle} disabled={disableButton}>Cadastrar</Button>
+							<Button type='submit' variant='contained' color='primary' style={LoginStyle.buttonStyle} disabled={disableButton}>Entrar</Button>
+						</div>
+						
 					</form>
 				</Paper>
 			</Grid>

@@ -36,6 +36,8 @@ export class LoginStyle {
 
 	static buttonStyle = { width: "150px", height: "100%", marginTop: "60px", marginBottom: "20px"}
 
+	static buttonsDivStyle = { width: "65%", display: "flex", alignItems: "center" as "center", alignContent: "center" as "center", flexDirection: "row" as "row", justifyContent: "space-around", flexWrap: "wrap" as "wrap"}
+
 	static warningStyle = { color: "red", margin: "0.5vh 0px 0px 0px", fontSize: "80%", /*display: "none"*/}
 
 	static formStyle = {

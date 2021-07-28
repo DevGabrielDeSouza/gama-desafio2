@@ -10,22 +10,25 @@ import IProduct from './Product/IProduct';
 import {CartService} from '../../services/CartService';
 import Navbar from '../Navbar';
 
+import *  as  serverData from '../../server.json';
+
+
 // import { Container } from './styles';
 
 const Store: React.FC<{ onAddToCart: Function}> = ({onAddToCart}) => {
 	const classes = useStyles();
 
-	const [data, setData] = useState<IProduct[]>([]);
+	const [data, setData] = useState<IProduct[]>(serverData.produtos as IProduct[]);
 	const [cartData, setCart] = useState<IProduct>();
 
 
-	useEffect(() => {
+	/*useEffect(() => {
 		api.get('').then(
 			response => {
 				setData(response.data);
 			}
 		)
-	}, []);
+	}, []);*/
 
 	useEffect(() => {
 		//localStorage.setItem(`@cart`, JSON.stringify(cartData));

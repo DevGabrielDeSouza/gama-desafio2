@@ -81,7 +81,9 @@ const App: React.FC = () => {
 				<Switch>
 
 					<Route exact path="/">
-						<Store onAddToCart={handleAddToCart} />
+						{
+							true?<Store onAddToCart={handleAddToCart} />:<Login />
+						}
 					</Route>
 
 					<Route exact path="/cart">
