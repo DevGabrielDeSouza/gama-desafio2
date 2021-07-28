@@ -9,6 +9,9 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Cart from './components/Cart';
 
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 // import { Container } from './styles';
 
 const App: React.FC = () => {
@@ -69,15 +72,29 @@ const App: React.FC = () => {
 		/*<div>
 			<Signup/>
 		</div>*/
-		/*<div>
-			<Navbar totalItems={(cartTotal as number)}/>
-			<Store onAddToCart={handleAddToCart}/>
-		</div>*/
+		
+		<Router>
+			<div>
+				<Navbar totalItems={(cartTotal as number)}/>
+				<Switch>
 
-		<div>
+					<Route exact path="/">
+						<Store onAddToCart={handleAddToCart} />
+					</Route>
+
+					<Route exact path="/cart">
+						<Cart onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
+					</Route>
+
+
+				</Switch>
+			</div>
+		</Router>
+
+		/*<div>
 			<Navbar totalItems={(cartTotal as number)} />
 			<Cart onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
-		</div>
+		</div>*/
 
 		/*<div>
 			<Home/>

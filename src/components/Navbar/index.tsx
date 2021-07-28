@@ -39,12 +39,12 @@ const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
 		<>
 			<AppBar position="fixed" className={classes.appBar} color="inherit">
 				<Toolbar>
-					<Typography /*component={Link} to="/"*/ variant="h6" className={classes.title} color="inherit">
+					<Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
 						<img src={logo} alt="Games and Tools" height="25px" className={classes.image} /> Games & Tools
 					</Typography>
 					<div className={classes.grow} />
 					<div className={classes.button}>
-						<IconButton /*component={Link} to="/cart"*/ aria-label="Show cart items" color="inherit" onClick={()=> CartService.clearAll()}>
+						<IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit" /*onClick={()=> CartService.clearAll()}*/>
 							<Badge badgeContent={totalItems} color="secondary">
 								<ShoppingCart />
 							</Badge>
