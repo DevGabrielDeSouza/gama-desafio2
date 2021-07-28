@@ -51,16 +51,18 @@ const App: React.FC = () => {
 
 	const handleUpdateCartQty = async (lineItemProduct: IProduct, quantity: number) => {
 		CartService.updateItemAmount(lineItemProduct, quantity);
+		setCartTotal(CartService.itemsAmount);
 	};
 
 	const handleRemoveFromCart = async (lineItemProduct: IProduct) => {
 		CartService.zeroItem(lineItemProduct);
+		setCartTotal(CartService.itemsAmount);
 
 	};
 
-	const handleEmptyCart = async (lineItemProduct: IProduct) => {
+	const handleEmptyCart = async () => {
 		CartService.emptyCart();
-
+		setCartTotal(CartService.itemsAmount);
 	};
 
 	
