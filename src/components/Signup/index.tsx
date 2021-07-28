@@ -14,8 +14,14 @@ import { SignupStyle } from './style';
 import SignUpValidation from './SignUpValidation';
 import UserService from '../../services/UserService';
 import IUserData from '../../services/IUserData';
+import LoginUserService from '../../services/LoginUserService';
+import ILoginUserData from '../../services/ILoginUserData';
 
-const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
+import { Link, useLocation } from 'react-router-dom';
+
+import {useHistory} from "react-router-dom";
+
+const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 
 	const [showNameWarning, setNameWarning] = useState(false);
 	const [showEmailWarning, setEmailWarning] = useState(false);
@@ -31,6 +37,8 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 	const [acceptTerms, setAcceptTerms] = useState(false);
 
 	const [openAlert, setOpenAlert] = useState(false);
+
+
 
 	const handleName = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setNameData(e.target.value);
@@ -92,9 +100,15 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		event.preventDefault();
 
 		if(validation){
-			if(!UserService.registerUser(nameData as string, emailData as string, passwordData as string)){
+			let registerResult = UserService.registerUser(nameData as string, emailData as string, passwordData as string);
+			if (!registerResult.registerStatus){
 				//alert("Usuário já cadastrado!");
 				setOpenAlert(true);
+				event.preventDefault();
+			}else{
+				LoginUserService.loginUser(registerResult.userLoginData as ILoginUserData);
+				onHandleToHome();
+				history.push("/");
 			}
 		}
 		UserService.log();
@@ -128,6 +142,8 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 		setDisableSignUp(!(nameCheck && emailCheck && passwordCheck && confirmPassCheck && e.target.checked));
 	}
+
+	const history = useHistory();
 
 	return (
 		<>
@@ -172,23 +188,23 @@ const Signup: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 							}
 						</div>
 						<div style={SignupStyle.inputRegionStyle}>
-							<TextField style={SignupStyle.inputStyle} fullWidth label='Password' placeholder="Insira uma senha" onChange={handlePassword}/>
+							<TextField style={SignupStyle.inputStyle} fullWidth label='Senha' placeholder="Insira uma senha" onChange={handlePassword}/>
 							{
 								showPassWarning?<span style={SignupStyle.warningStyle}>Senha muito curta (mínimo de 8 dígitos)</span>:null
 							}
 						</div>
 						<div style={SignupStyle.inputRegionStyle}>
-							<TextField disabled={disableConfirmPass} style={SignupStyle.inputStyle} fullWidth label='Confirm Password' placeholder="Confirm your passwordData" onChange={handlePasswordConfirm}/>
+							<TextField disabled={disableConfirmPass} style={SignupStyle.inputStyle} fullWidth label='Confirmar senha' placeholder="Digite sua senha novamente" onChange={handlePasswordConfirm}/>
 							{
 								showConfirmPassWarning?<span style={SignupStyle.warningStyle}>Senhas diferentes</span>:null
 							}
 						</div>
 						<FormControlLabel
 							control={<Checkbox name="checkedA" onChange={handleAcceptTerms}/>}
-							label="I accept the terms and conditions."
+							label="Eu aceito os termos e condições de uso."
 							style={SignupStyle.acceptStyle}
 						/>
-						<Button type='submit' variant='contained' color='primary' style={SignupStyle.buttonStyle} disabled={disableSignUp}>Sign up</Button>
+						<Button type='submit' variant='contained' color='primary' style={SignupStyle.buttonStyle} disabled={disableSignUp}>Registrar</Button>
 					</form>
 				</Paper>
 				<div style={SignupStyle.emptySpaceStyle}></div>

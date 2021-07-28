@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
 
@@ -14,6 +14,10 @@ import { LoginStyle } from './style';
 import SignUpValidation from '../Signup/SignUpValidation';
 import UserService from '../../services/UserService';
 import IUserData from '../../services/IUserData';
+
+import { Link, useHistory } from 'react-router-dom';
+import LoginUserService from '../../services/LoginUserService';
+import ILoginUserData from '../../services/ILoginUserData';
 
 const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
@@ -57,18 +61,25 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 	const login = (event: any) => {
 		let validation =	SignUpValidation.validateEmail(emailData as string) &&
-							(passwordData as string).length > 0;
-		event.preventDefault();
+			(passwordData as string).length > 0;
+		
 
 		if (validation) {
-			let loginStatus = UserService.loginUser(emailData as string, passwordData as string);
+			let loginStatus = UserService.validateUser(emailData as string, passwordData as string);
 
 			if(loginStatus.emailStatus){
 				setWrongPass(!loginStatus.passwordStatus);
 				setNoEmailUser(false);
+
+				if (loginStatus.passwordStatus){
+					LoginUserService.loginUser(loginStatus.userLoginData as ILoginUserData);
+				}else{
+					event.preventDefault();
+				}
 			}else{
 				setNoEmailUser(!loginStatus.emailStatus);
 				setWrongPass(false);
+				event.preventDefault();
 			}
 		}
 	}
@@ -121,7 +132,7 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 							}
 						</div>
 						<div style={LoginStyle.buttonsDivStyle}>
-							<Button type='submit' variant='contained' style={LoginStyle.buttonStyle} disabled={disableButton}>Cadastrar</Button>
+							<Button component={Link} to="/signup"  type='submit' variant='contained' style={LoginStyle.buttonStyle}>Cadastre-se</Button>
 							<Button type='submit' variant='contained' color='primary' style={LoginStyle.buttonStyle} disabled={disableButton}>Entrar</Button>
 						</div>
 						

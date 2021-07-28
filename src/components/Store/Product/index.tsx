@@ -10,7 +10,7 @@ import IProduct from './IProduct';
 const Product: React.FC<{ product: IProduct, onAddToCart: Function }> = ( {product, onAddToCart} ) => {
 	const classes = useStyles();
 
-	const handleAddToCart = () => onAddToCart(product.id);
+	const handleAddToCart = () => {onAddToCart(product.id)};
 
 	return (
 		<Card className={classes.root}>

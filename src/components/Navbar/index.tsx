@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link, useLocation } from 'react-router-dom';
 
 import { CartService } from '../../services/CartService';
 
 import logo from '../../assets/game-tools.png';
 import useStyles from './styles';
+import LoginUserService from '../../services/LoginUserService';
 
 // import { Container } from './styles';
 
-const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
+const Navbar: React.FC<{totalItems: number, onHandleLogout: Function}> = ({totalItems, onHandleLogout}) => {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 	const classes = useStyles();
 	//const location = useLocation();
@@ -20,6 +22,9 @@ const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
 	const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
 
 	const mobileMenuId = 'primary-search-account-menu-mobile';
+
+
+	const handleLogout = () => onHandleLogout();
 
 	const renderMobileMenu = (
 		<Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
@@ -44,7 +49,10 @@ const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
 					</Typography>
 					<div className={classes.grow} />
 					<div className={classes.button}>
-						<IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit" /*onClick={()=> CartService.clearAll()}*/>
+						<IconButton component={Link} to="/" aria-label="Sair" color="inherit" onClick={handleLogout}>
+							<ExitToAppIcon />
+						</IconButton>
+						<IconButton component={Link} to="/cart" aria-label="Abrir carrinho" color="inherit" /*onClick={()=> CartService.clearAll()}*/>
 							<Badge badgeContent={totalItems} color="secondary">
 								<ShoppingCart />
 							</Badge>

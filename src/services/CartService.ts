@@ -1,14 +1,18 @@
 import ICartItem from "../components/Cart/ICartItem";
 import IProduct from "../components/Store/Product/IProduct";
+import LoginUserService from "./LoginUserService";
 
 export class CartService {
-	static get data(): ICartItem[]{
+	static get data(): ICartItem[] {
+		if (LoginUserService.getUser() == null) {
+			return [];
+		}
 		//return this._data;
-		let savedData = localStorage.getItem(`@cart`);
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		if (savedData === null) {
 			return [];
 		}else{
-			return JSON.parse(<string>localStorage.getItem(`@cart`));
+			return JSON.parse(<string>localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email));
 		}
 	}
 
@@ -23,7 +27,10 @@ export class CartService {
 	}
 
 	static getItemAmount(product: IProduct): number {
-		let savedData = localStorage.getItem(`@cart`);
+		if (LoginUserService.getUser() === null) {
+			return 0;
+		}
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		let newCartGroup: ICartItem = { id: product.id, amount: 1, product: product };
 		if (savedData === null) {
 			return 0;
@@ -42,11 +49,11 @@ export class CartService {
 	}
 
 	static updateItemAmount(product: IProduct, amount: number) {
-		let savedData = localStorage.getItem(`@cart`);
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		let newCartGroup: ICartItem = { id: product.id, amount: 1, product: product };
 		if (savedData === null) {
-			//localStorage.setItem(`@cart`, JSON.stringify([product]));
-			localStorage.setItem(`@cart`, JSON.stringify([newCartGroup]));
+			//localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([product]));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([newCartGroup]));
 		} else {
 			let data: ICartItem[] = JSON.parse(savedData);
 
@@ -62,17 +69,17 @@ export class CartService {
 				data.push(newCartGroup);
 			}
 
-			localStorage.setItem(`@cart`, JSON.stringify(data));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify(data));
 		}
 		this.log();
 	}
 
 	static removeItem(product: IProduct) {
-		let savedData = localStorage.getItem(`@cart`);
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		let newCartGroup: ICartItem = { id: product.id, amount: 1, product: product };
 		if (savedData === null) {
-			//localStorage.setItem(`@cart`, JSON.stringify([product]));
-			localStorage.setItem(`@cart`, JSON.stringify([newCartGroup]));
+			//localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([product]));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([newCartGroup]));
 		} else {
 			let data: ICartItem[] = JSON.parse(savedData);
 
@@ -88,17 +95,17 @@ export class CartService {
 				data.push(newCartGroup);
 			}
 
-			localStorage.setItem(`@cart`, JSON.stringify(data));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify(data));
 		}
 		this.log();
 	}
 
 	static zeroItem(product: IProduct) {
-		let savedData = localStorage.getItem(`@cart`);
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		let newCartGroup: ICartItem = { id: product.id, amount: 1, product: product };
 		if (savedData === null) {
-			//localStorage.setItem(`@cart`, JSON.stringify([product]));
-			localStorage.setItem(`@cart`, JSON.stringify([newCartGroup]));
+			//localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([product]));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([newCartGroup]));
 		} else {
 			let data: ICartItem[] = JSON.parse(savedData);
 
@@ -114,18 +121,18 @@ export class CartService {
 				data.push(newCartGroup);
 			}
 
-			localStorage.setItem(`@cart`, JSON.stringify(data));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify(data));
 		}
 		this.log();
 	}
 
 	static addItem(product: IProduct) {
-		//localStorage.removeItem(`@cart`);
-		let savedData = localStorage.getItem(`@cart`);
+		//localStorage.removeItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
+		let savedData = localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		let newCartGroup: ICartItem = { id: product.id, amount: 1, product: product };
 		if (savedData === null) {
-			//localStorage.setItem(`@cart`, JSON.stringify([product]));
-			localStorage.setItem(`@cart`, JSON.stringify([newCartGroup]));
+			//localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([product]));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify([newCartGroup]));
 		}else{
 			let data: ICartItem[] = JSON.parse(savedData);
 
@@ -141,18 +148,18 @@ export class CartService {
 				data.push(newCartGroup);
 			}
 
-			localStorage.setItem(`@cart`, JSON.stringify(data));
+			localStorage.setItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email, JSON.stringify(data));
 		}
 		this.log();
 	}
 
 	static clearAll(){
-		localStorage.removeItem(`@cart`);
+		localStorage.removeItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email);
 		this.log();
 	}
 
 	static log() {
-		console.log(JSON.parse("" + localStorage.getItem(`@cart`)));
+		console.log(JSON.parse("" + localStorage.getItem(`@gamesAndTools-cart-`+LoginUserService.getUser().email)));
 	}
 }
 

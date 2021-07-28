@@ -11,17 +11,26 @@ import Cart from './components/Cart';
 
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginUserService from './services/LoginUserService';
+
+import * as productLocalData from "./server.json";
 
 // import { Container } from './styles';
+
+import { useHistory } from "react-router-dom";
 
 const App: React.FC = () => {
 	const [cartTotal, setCartTotal] = useState<number>();
 
-	const [productsData, setData] = useState<IProduct[]>([]);
+	const [productsData, setData] = useState<IProduct[]>(productLocalData.produtos);
 	const [cartData, setCart] = useState<IProduct>();
 
+	const [isLogged, setIsLogged] = useState(LoginUserService.isLogged());
 
-	useEffect(() => {
+
+	const history = useHistory();
+
+	/*useEffect(() => {
 		api.get('').then(
 			response => {
 				setData(response.data);
@@ -29,22 +38,25 @@ const App: React.FC = () => {
 				//localStorage.removeItem(`@cart`);
 			}
 		)
-	}, []);
+	}, []);*/
 
 	useEffect(() => {
 		//localStorage.setItem(`@cart`, JSON.stringify(cartData));
+		console.log(isLogged);
 		setCartTotal(CartService.itemsAmount);
 	}, [cartData]);
 
 
 	const addItemByIndex = (index: number) => {
 		let product = productsData.find(match =>match.id == index);
+		console.log(product);
 		//let product = productsData[index];
 		CartService.addItem(product as IProduct);
 		//setCart(product);
 	}
 
 	const handleAddToCart = async (index: number) => {
+		console.log(index);
 		addItemByIndex(index);
 		setCartTotal(CartService.itemsAmount);
 	};
@@ -65,6 +77,15 @@ const App: React.FC = () => {
 		setCartTotal(CartService.itemsAmount);
 	};
 
+	const handleLogout = async () => {
+		LoginUserService.logoutUser();
+		setIsLogged(LoginUserService.isLogged());
+	}
+
+	const handleToHome = async () => {
+		setIsLogged(LoginUserService.isLogged());
+	}
+
 	
 
 	return (
@@ -77,18 +98,24 @@ const App: React.FC = () => {
 		
 		<Router>
 			<div>
-				<Navbar totalItems={(cartTotal as number)}/>
+				{
+					isLogged ? <Navbar totalItems={(cartTotal as number)} onHandleLogout={handleLogout}/>:null
+				}
 				<Switch>
 
 					<Route exact path="/">
 						{
-							true?<Store onAddToCart={handleAddToCart} />:<Login />
+							isLogged?<Store onAddToCart={handleAddToCart} />:<Login />
 						}
 					</Route>
 
 					<Route exact path="/cart">
 						<Cart onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
 					</Route>
+
+					{
+						!isLogged ?	<Route exact path="/signup"><Signup onHandleToHome={handleToHome}/></Route>:null
+					}
 
 
 				</Switch>

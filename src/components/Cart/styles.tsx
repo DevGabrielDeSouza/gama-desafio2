@@ -12,6 +12,7 @@ export default makeStyles((theme) => ({
 		},
 		[theme.breakpoints.up('xs')]: {
 			marginRight: '20px',
+			marginBottom: '50px'
 		},
 	},
 	checkoutButton: {

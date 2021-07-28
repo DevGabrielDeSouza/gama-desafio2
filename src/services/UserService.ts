@@ -1,18 +1,19 @@
 import IProduct from "../components/Store/Product/IProduct";
+import ILoginUserData from "./ILoginUserData";
 import IUserData from "./IUserData";
 
 export default class UserService{
 	static get data() {
 		//return this._data;
-		let savedData = localStorage.getItem(`@user`);
+		let savedData = localStorage.getItem(`@gamesAndTools-usersBase`);
 		if (savedData === null) {
 			return [];
 		} else {
-			return JSON.parse(<string>localStorage.getItem(`@user`));
+			return JSON.parse(<string>localStorage.getItem(`@gamesAndTools-usersBase`));
 		}
 	}
 
-	static registerUser(nameData: string, emailData: string, passwordData: string) {
+	static registerUser(nameData: string, emailData: string, passwordData: string): { registerStatus: boolean, userLoginData?: ILoginUserData} {
 		if (!this.containsUser(emailData)){
 			let userData: IUserData = {
 				name: nameData,
@@ -20,22 +21,26 @@ export default class UserService{
 				password: passwordData ,
 				cart: []
 			};
+			let name = userData.name;
+			let email = userData.email;
 			UserService.addItem(userData);
-			return true;
+			return { registerStatus: true, userLoginData: { name, email}};
 		}else{
-			return false;
+			return { registerStatus: false };
 		}
 	}
 
-	static loginUser(emailData: string, password: string): { emailStatus: boolean, passwordStatus: boolean } {
+	static validateUser(emailData: string, password: string): { emailStatus: boolean, passwordStatus: boolean, userLoginData?: ILoginUserData } {
 
 		let emailMatch = UserService.containsUser(emailData);
 
 		if (emailMatch != undefined) {
-			return { emailStatus: true, passwordStatus: emailMatch.password == password };
+			let name = emailMatch.name;
+			let email = emailMatch.email;
+			return { emailStatus: true, passwordStatus: emailMatch.password == password, userLoginData: {name, email} };
 		}
 
-		return { emailStatus: false, passwordStatus: false };
+		return { emailStatus: false, passwordStatus: false};
 	}
 
 	static containsUser(email: string){
@@ -44,22 +49,22 @@ export default class UserService{
 	}
 
 	static addItem(userData: IUserData) {
-		//localStorage.removeItem(`@user`);
-		let savedData = localStorage.getItem(`@user`);
+		//localStorage.removeItem(`@gamesAndTools-usersBase`);
+		let savedData = localStorage.getItem(`@gamesAndTools-usersBase`);
 		if (savedData === null) {
-			localStorage.setItem(`@user`, JSON.stringify([userData]));
+			localStorage.setItem(`@gamesAndTools-usersBase`, JSON.stringify([userData]));
 		} else {
 			let data = JSON.parse(savedData);
 			data.push(userData);
-			localStorage.setItem(`@user`, JSON.stringify(data));
+			localStorage.setItem(`@gamesAndTools-usersBase`, JSON.stringify(data));
 		}
 	}
 
 	static log() {
-		console.log(JSON.parse("" + localStorage.getItem(`@user`)));
+		console.log(JSON.parse("" + localStorage.getItem(`@gamesAndTools-usersBase`)));
 	}
 
 	static clearAllData(){
-		localStorage.removeItem(`@user`);
+		localStorage.removeItem(`@gamesAndTools-usersBase`);
 	}
 }
