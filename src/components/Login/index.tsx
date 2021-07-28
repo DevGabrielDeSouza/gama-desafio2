@@ -19,6 +19,7 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 	const [showEmailWarning, setEmailWarning] = useState(false);
 	const [showPassWarning, setPassWarning] = useState(false);
+	const [disableButton, setDisableButton] = useState(true);
 
 	const [showNoEmailUser, setNoEmailUser] = useState(false);
 	const [showWrongPass, setWrongPass] = useState(false);
@@ -35,6 +36,10 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 		setNoEmailUser(false);
 		let validation = SignUpValidation.validateEmail(e.target.value);
 		setEmailWarning(!validation);
+
+		let passwordCheck = passwordData != undefined && (passwordData as string).length > 0;
+
+		setDisableButton((!validation) || !passwordCheck);
 	}
 
 	const handlePassword = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -44,10 +49,15 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 
 		let validation = e.target.value.length > 0;
 		setPassWarning(!validation);
+
+		let emailCheck = emailData != undefined && SignUpValidation.validateEmail(emailData as string);
+
+		setDisableButton(!validation || !emailCheck);
 	}
 
 	const login = (event: any) => {
-		let validation = !showEmailWarning && !showPassWarning;
+		let validation =	SignUpValidation.validateEmail(emailData as string) &&
+							(passwordData as string).length > 0;
 		event.preventDefault();
 
 		if (validation) {
@@ -110,7 +120,7 @@ const Login: React.FC/*<{submitForm: any}>*/ = (/*{ submitForm }*/) => {
 								showWrongPass ? <span style={LoginStyle.warningStyle}>Senha inválida</span> : null
 							}
 						</div>
-						<Button type='submit' variant='contained' color='primary' style={LoginStyle.buttonStyle}>Sign up</Button>
+						<Button type='submit' variant='contained' color='primary' style={LoginStyle.buttonStyle} disabled={disableButton}>Sign up</Button>
 					</form>
 				</Paper>
 			</Grid>
