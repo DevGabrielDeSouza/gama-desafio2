@@ -3,7 +3,7 @@ import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Cart } from '../../services/Cart';
+import { CartService } from '../../services/CartService';
 
 import logo from '../../assets/game-tools.png';
 import useStyles from './styles';
@@ -40,11 +40,11 @@ const Navbar: React.FC<{totalItems: number}> = ({totalItems}) => {
 			<AppBar position="fixed" className={classes.appBar} color="inherit">
 				<Toolbar>
 					<Typography /*component={Link} to="/"*/ variant="h6" className={classes.title} color="inherit">
-						<img src={logo} alt="commerce.js" height="25px" className={classes.image} /> Games & Tools
+						<img src={logo} alt="Games and Tools" height="25px" className={classes.image} /> Games & Tools
 					</Typography>
 					<div className={classes.grow} />
 					<div className={classes.button}>
-						<IconButton /*component={Link} to="/cart"*/ aria-label="Show cart items" color="inherit">
+						<IconButton /*component={Link} to="/cart"*/ aria-label="Show cart items" color="inherit" onClick={()=> CartService.clearAll()}>
 							<Badge badgeContent={totalItems} color="secondary">
 								<ShoppingCart />
 							</Badge>

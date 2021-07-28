@@ -7,7 +7,7 @@ import Product from './Product';
 import useStyles from './styles';
 
 import IProduct from './Product/IProduct';
-import {Cart} from '../../services/Cart';
+import {CartService} from '../../services/CartService';
 import Navbar from '../Navbar';
 
 // import { Container } from './styles';
@@ -34,7 +34,7 @@ const Store: React.FC<{ onAddToCart: Function}> = ({onAddToCart}) => {
 
 	const handleCart = (index: number) => {
 		let product = data[index];
-		Cart.addItem(product as IProduct);
+		CartService.addItem(product as IProduct);
 		//setCart(product);
 	}
 
