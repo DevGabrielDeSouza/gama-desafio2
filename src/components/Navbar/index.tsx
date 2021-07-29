@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Link, useLocation } from 'react-router-dom';
-
-import { CartService } from '../../services/CartService';
+import { Link } from 'react-router-dom';
 
 import logo from '../../assets/game-tools.png';
 import useStyles from './styles';
-import LoginUserService from '../../services/LoginUserService';
 
 // import { Container } from './styles';
 

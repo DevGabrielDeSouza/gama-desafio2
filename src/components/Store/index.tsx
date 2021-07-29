@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -8,7 +7,6 @@ import useStyles from './styles';
 
 import IProduct from './Product/IProduct';
 import {CartService} from '../../services/CartService';
-import Navbar from '../Navbar';
 
 import *  as  serverData from '../../server.json';
 

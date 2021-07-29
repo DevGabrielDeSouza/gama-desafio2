@@ -7,15 +7,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
 import { LoginStyle } from './style';
 import SignUpValidation from '../Signup/SignUpValidation';
 import UserService from '../../services/UserService';
-import IUserData from '../../services/IUserData';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoginUserService from '../../services/LoginUserService';
 import ILoginUserData from '../../services/ILoginUserData';
 

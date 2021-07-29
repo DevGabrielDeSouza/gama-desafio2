@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Store from './components/Store';
 import Navbar from './components/Navbar';
-import Home from './view/Home';
 import CartService from './services/CartService';
-import api from './services/api';
 import IProduct from './components/Store/Product/IProduct';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -48,7 +46,7 @@ const App: React.FC = () => {
 
 
 	const addItemByIndex = (index: number) => {
-		let product = productsData.find(match =>match.id == index);
+		let product = productsData.find(match =>match.id===index);
 		console.log(product);
 		//let product = productsData[index];
 		CartService.addItem(product as IProduct);

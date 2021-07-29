@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
+import { Grid, Paper, Typography, TextField, Button } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -16,8 +16,6 @@ import UserService from '../../services/UserService';
 import IUserData from '../../services/IUserData';
 import LoginUserService from '../../services/LoginUserService';
 import ILoginUserData from '../../services/ILoginUserData';
-
-import { Link, useLocation } from 'react-router-dom';
 
 import {useHistory} from "react-router-dom";
 
@@ -48,7 +46,7 @@ const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 
 		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
 		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
-		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData===passwordData);
 
 		setDisableSignUp(!(validation && emailCheck && passwordCheck && confirmPassCheck && acceptTerms));
 
@@ -62,7 +60,7 @@ const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 
 		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
 		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
-		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData===passwordData);
 
 		setDisableSignUp(!(validation && nameCheck && passwordCheck && confirmPassCheck && acceptTerms));
 	}
@@ -77,14 +75,14 @@ const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 
 		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
 		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
-		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == e.target.value);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData===e.target.value);
 
 		setDisableSignUp(!(validation && nameCheck && emailCheck && confirmPassCheck && acceptTerms));
 	}
 
 	const handlePasswordConfirm = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 		setConfirmPassData(e.target.value);
-		let validation = e.target.value == passwordData;
+		let validation = e.target.value===passwordData;
 		setConfirmPassWarning(!validation);
 
 
@@ -119,7 +117,7 @@ const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
 		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
 		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
-		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData===passwordData);
 
 		console.log(
 			"nameCheck: " + nameCheck + 
@@ -138,7 +136,7 @@ const Signup: React.FC<{ onHandleToHome: Function }> = ({ onHandleToHome }) => {
 		let nameCheck = nameData != undefined && SignUpValidation.validateName(nameData as string);
 		let emailCheck = emailData != undefined && !!SignUpValidation.validateEmail(emailData as string);
 		let passwordCheck = passwordData != undefined && SignUpValidation.validatePassword(passwordData as string);
-		let confirmPassCheck = confirmPassData != undefined && (confirmPassData == passwordData);
+		let confirmPassCheck = confirmPassData != undefined && (confirmPassData===passwordData);
 
 		setDisableSignUp(!(nameCheck && emailCheck && passwordCheck && confirmPassCheck && e.target.checked));
 	}

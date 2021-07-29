@@ -1,4 +1,4 @@
-import IProduct from "../components/Store/Product/IProduct";
+
 import ILoginUserData from "./ILoginUserData";
 import IUserData from "./IUserData";
 
@@ -37,7 +37,7 @@ export default class UserService{
 		if (emailMatch != undefined) {
 			let name = emailMatch.name;
 			let email = emailMatch.email;
-			return { emailStatus: true, passwordStatus: emailMatch.password == password, userLoginData: {name, email} };
+			return { emailStatus: true, passwordStatus: emailMatch.password===password, userLoginData: {name, email} };
 		}
 
 		return { emailStatus: false, passwordStatus: false};

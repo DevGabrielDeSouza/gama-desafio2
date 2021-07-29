@@ -4,7 +4,7 @@ import LoginUserService from "./LoginUserService";
 
 export class CartService {
 	static get data(): ICartItem[] {
-		if (LoginUserService.getUser() == null) {
+		if (LoginUserService.getUser()===null) {
 			return [];
 		}
 		//return this._data;
@@ -46,7 +46,7 @@ export class CartService {
 			//let finding = data.find(match => match.id === product.id);
 			let finding = data.find((match) => match.id === product.id);
 
-			if (finding == undefined) {
+			if (finding===undefined) {
 				return 0;
 			}else{
 				return finding.amount;
@@ -71,7 +71,7 @@ export class CartService {
 				}
 			});
 
-			if (finding == undefined) {
+			if (finding===undefined) {
 				data.push(newCartGroup);
 			}
 
@@ -97,7 +97,7 @@ export class CartService {
 				}
 			});
 
-			if (finding == undefined) {
+			if (finding===undefined) {
 				data.push(newCartGroup);
 			}
 
@@ -123,7 +123,7 @@ export class CartService {
 				}
 			});
 
-			if (finding == undefined) {
+			if (finding===undefined) {
 				data.push(newCartGroup);
 			}
 
@@ -150,7 +150,7 @@ export class CartService {
 				}
 			});
 
-			if (finding == undefined) {
+			if (finding===undefined) {
 				data.push(newCartGroup);
 			}
 
