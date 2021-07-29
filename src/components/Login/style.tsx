@@ -1,4 +1,4 @@
-
+import '@fontsource/roboto';
 
 export class LoginStyle {
 	static paperStyle = {
@@ -11,6 +11,7 @@ export class LoginStyle {
 		margin: 0, width: "100%", 
 		textAlign: "center" as "center", 
 		fontSize: "max(200%, 6vmin)",
+		fontFamily: "roboto",
 		marginBottom: "10px",
 		marginTop: "10px"
 	}

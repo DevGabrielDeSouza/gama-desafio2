@@ -2,31 +2,59 @@
 	"produtos": [
 		{
 			"id": 1,
-			"photo": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWYK2?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1567304928359",
-			"name": "IPhone",
-			"description": "Descrição do produto",
-			"price": 8000
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/batatman.png",
+			"name": "Batatman",
+			"description": "O cavaleiro dos carboidratos ressurge.",
+			"price": 50
 		},
 		{
 			"id": 2,
-			"photo": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWYK2?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1567304928359",
-			"name": "Galaxy 1",
-			"description": "Bonito, deseign confuso e com Rosalina",
-			"price": 3000
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/meia-noite.png",
+			"name": "Meia Noite",
+			"description": "Um quarto muito escuro e perigoso.",
+			"price": 15
 		},
 		{
 			"id": 3,
-			"photo": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWYK2?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1567304928359",
-			"name": "Galaxy 2",
-			"description": "Fofinho, ótimo design mas sem Rosalina",
-			"price": 3000
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/carried.png",
+			"name": "Carried",
+			"description": "Um jogo em pixel art no deserto.",
+			"price": 5
 		},
 		{
 			"id": 4,
-			"photo": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWYK2?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1567304928359",
-			"name": "Galaxy 3",
-			"description": "Vai ser lançado com Half-Life 3",
-			"price": 3000
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/cards.png",
+			"name": "The Indie Game",
+			"description": "Um jogo sobre fazer jogos",
+			"price": 60
+		},
+		{
+			"id": 5,
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/light.jpg",
+			"name": "Mr. Spark",
+			"description": "Um jogo de luzes.",
+			"price": 80
+		},
+		{
+			"id": 6,
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/middlemarket.png",
+			"name": "Middle Market",
+			"description": "DEus salve a burguesia!",
+			"price": 20
+		},
+		{
+			"id": 7,
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/shadowrabbit.png",
+			"name": "Shadow Rabbit",
+			"description": "Uma fuga no crepúsculo.",
+			"price": 10
+		},
+		{
+			"id": 8,
+			"photo": "https://raw.githubusercontent.com/DevGabrielDeSouza/gama-images-2/main/cubemaze.png",
+			"name": "Cube Maze",
+			"description": "Um mundo de quebra-cabeças 3D.",
+			"price": 60
 		}
 	]
 }

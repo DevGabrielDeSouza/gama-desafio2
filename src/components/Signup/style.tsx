@@ -1,4 +1,4 @@
-
+import '@fontsource/roboto';
 
 export class SignupStyle {
 	static paperStyle = {
@@ -7,7 +7,8 @@ export class SignupStyle {
 		maxWidth: "80%",
 		margin: "8vh 0vh 0vh 0vh",
 	}
-	static headerStyle = { margin: 0, width: "100%", textAlign: "center" as "center", fontSize: "max(200%, 6vmin)"}
+	static headerStyle = {
+		margin: 0, width: "100%", textAlign: "center" as "center", fontSize: "max(200%, 6vmin)", fontFamily: "roboto",}
 	static descStyle = { textAlign: "center" as "center", margin: "10px 0 1vh 0", fontSize: "max(90%, 2vmin)" }
 	static inputRegionStyle = { width: "90%",}
 	static inputStyle = { height: "max(200%, 2vmin)" }

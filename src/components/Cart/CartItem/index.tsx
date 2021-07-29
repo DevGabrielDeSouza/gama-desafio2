@@ -23,8 +23,8 @@ const CartItem: React.FC<{ item: ICartItem, onUpdateCartQty: Function, onRemoveF
 				(itemAmount > 0)?<Card className="cart-item">
 				<CardMedia image={item.product.photo} className={classes.media} />
 				<CardContent className={classes.cardContent}>
-					<Typography variant="h4">{item.product.name}</Typography>
-						<Typography variant="h5">R${itemAmount * item.product.price}</Typography>
+					<Typography variant="h6">{item.product.name}</Typography>
+						<Typography variant="h6">R${itemAmount * item.product.price}</Typography>
 				</CardContent>
 				<CardActions className={classes.cartActions}>
 					<div className={classes.buttons}>
