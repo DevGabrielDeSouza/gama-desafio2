@@ -22,6 +22,12 @@ export class CartService {
 		return amount;
 	}
 
+	static getTotalPrice(){
+		let totalPrice = 0;
+		CartService.data.forEach(element => totalPrice += element.product.price * element.amount);
+		return totalPrice;
+	}
+
 	static emptyCart(){
 		CartService.clearAll();
 	}
